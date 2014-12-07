@@ -40,3 +40,7 @@
 
 - support library for displaying graphics on terminal emulator window
 
+## Test page
+
+- http://homma.github.io/app/dots8editor/
+
