@@ -3,15 +3,22 @@
 
 ////// Fixed Calculated Parameters (non changeable by users)
 
-//// dot
+//// cell
 
 d8.config.cell.width = d8.config.dot.width * 4;
 d8.config.cell.height = d8.config.dot.width * 9;
+
+d8.config.cell.horizontalDots = 4;
+d8.config.cell.verticalDots = 2;
 
 //// canvas
 
 d8.config.canvas.width = d8.config.canvas.horizontalCells * d8.config.cell.width;
 d8.config.canvas.height = d8.config.canvas.verticalCells * d8.config.cell.height;
+
+//// guids
+
+d8.config.guide.intervalCells = Math.floor( d8.config.guide.interval / d8.config.cell.verticalDots );
 
 //// execution modes
 

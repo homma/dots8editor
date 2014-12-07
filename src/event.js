@@ -23,6 +23,7 @@ function keyHandler(e) {
 
 }
 
+/*
 // clicked on a dot
 
 function clicked(dot) {
@@ -40,4 +41,4 @@ function clicked(dot) {
   }
 
 }
-
+*/

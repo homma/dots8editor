@@ -14,6 +14,10 @@ function createCanvas(id) {
 
   createCells(canvas);
 
+  if(d8.config.guide.use) {
+    setGuide();
+  }
+
 }
 
 function createElement(canvas, tagName) {
@@ -72,7 +76,7 @@ function createSquare(canvas, x, y, w) {
 
 }
 
-function createDot(x, y) {
+function dot(x, y) {
 
   var r      = d8.config.dot.width / 2;
   var rect_w = d8.config.dot.width * 2;
@@ -82,24 +86,91 @@ function createDot(x, y) {
   var cy = y + d8.config.dot.width;
 
   // create dot
-  var circle = createCircle(canvas, cx, cy, r);
-  circle.setAttribute("fill", d8.config.color.off);
+  this.circle = createCircle(canvas, cx, cy, r);
 
   // create rect (for hit test)
-  var rect = createSquare(canvas, x, y, rect_w);
-  rect.setAttribute("opacity", 0.0);
+  this.rect = createSquare(canvas, x, y, rect_w);
 
-  // dot object
-  var dot = { dot: circle, rect: rect, on: false };
+  this.on = false;
+
+  // set color to disabled color
+  this.disable();
+
+  // this is not a guide point
+  this.guide = false;
+
+  // set rect transparent
+  this.rect.setAttribute("opacity", 0.0);
 
   // add event
-  rect.onclick = function(e) { clicked(dot) };
-
-  return dot;
+  var self = this;
+  this.rect.onclick = function() { self.switch(); };
 
 }
 
-function createCell(canvas, x, y) {
+dot.prototype.color = function(color) {
+
+  this.circle.setAttribute("fill", color);
+
+}
+
+dot.prototype.enable = function() {
+
+  this.on = true;
+
+  this.color(d8.config.color.on);
+
+}
+
+dot.prototype.disable = function() {
+
+  this.on = false;
+
+  if(d8.config.guide.use && this.guide) {
+
+    this.color(d8.config.color.guide);
+
+  } else {
+
+    this.color(d8.config.color.off);
+
+  }
+
+}
+
+dot.prototype.setGuide = function() {
+
+  this.guide = true;
+
+  if(this.on) {
+    this.enable();
+  } else {
+    this.disable();
+  }
+
+}
+
+dot.prototype.change = function(flag) {
+
+  if(flag) {
+    this.enable();
+  } else {
+    this.disable();
+  }
+
+}
+
+dot.prototype.switch = function() {
+
+  if(this.on) {
+    this.disable()
+  } else {
+    this.enable()
+  }
+
+}
+
+function cell(canvas, x, y) {
 
   // calculate positions of dots
   var positions = [];
@@ -113,7 +184,7 @@ function createCell(canvas, x, y) {
   }  
 
   // create dots and record them
-  var cell = [];
+  this.dots = [];
 
   for(var i = 0; i < positions.length; i++) {
 
@@ -122,11 +193,66 @@ function createCell(canvas, x, y) {
     var y = positions[i].y;
 
     // create and record
-    cell.push( createDot(x, y) );
+    this.dots.push( new dot(x, y) );
 
   }
 
-  d8.data.cells.push(cell);
+}
+
+cell.prototype.setGuide = function() {
+
+  this.dots[0].setGuide();
+  this.dots[2].setGuide();
+  this.dots[4].setGuide();
+  this.dots[6].setGuide();
+
+}
+
+cell.prototype.toString = function() {
+
+  // character code
+  var n = 0;
+
+  // cell format
+  //
+  // 0 1
+  // 2 3
+  // 4 5
+  // 6 7
+  //
+  // binary format
+  //
+  // 76531420
+  //
+
+  var arr = [7, 6, 5, 3, 1, 4, 2, 0];
+
+  for(var i = 0; i < arr.length; i++) {
+
+    if(n != 0) {
+      n = n << 1;
+    }
+
+    var p = arr[i];
+    if(this.dots[p].on) {
+
+      n += 1;
+
+    } else {
+
+      n += 0;
+
+    }
+
+  }
+
+  // add offset
+  n += d8.data.dotZero;
+
+  // convert to a string
+  var ret = String.fromCharCode(n);
+
+  return ret;
 
 }
 
@@ -153,10 +279,12 @@ function createCells(canvas) {
       var x = j * d8.config.cell.width;
 
       if(d8.config.mode.useFragment) {
-        createCell(fragment, x, y);
+        var c = new cell(fragment, x, y);
       } else {
-        createCell(canvas, x, y);
+        var c = new cell(canvas, x, y);
       }
+
+      d8.data.cells.push(c);
 
     }
 
@@ -171,4 +299,18 @@ function createCells(canvas) {
   }
 
 }
+
+function setGuide() {
+
+  var ival = d8.config.guide.intervalCells;
+  var cells = d8.data.cells;
+
+  for(var i = 0; i < cells.length; i += ival) {
+
+    cells[i].setGuide();
+
+  }
+
+}
+
 

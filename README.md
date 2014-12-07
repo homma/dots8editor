@@ -1,5 +1,5 @@
 
-## What is it
+## What is this
 
 - A web browser based graphics editor for creating black and white dot graphics which can be displayed on terminal emulators.
 
@@ -9,13 +9,13 @@
 
 ## How to use
 
-### create
+### create an image
 - click dots to create a graphic image
 
 ### save
 - press 'e' key to export it
 
-### display on terminal emulators
+### display on a terminal emulator
 - copy the resulting graphic data from javascript prompt output
 - paste it to your terminal emulater
 

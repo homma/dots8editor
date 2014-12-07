@@ -20,8 +20,10 @@ d8.config.dot.width = 3;
 
 d8.config.color = {};
 
+// darkgray, gray, gainsboro, silver, lightgray, ghostwhite, whitesmoke
 d8.config.color.on = 'black';
-d8.config.color.off = 'silver';
+d8.config.color.off = 'lightgray';
+d8.config.color.guide = 'silver';
 
 //// cell
 
@@ -38,4 +40,13 @@ d8.config.canvas.verticalCells = 24;
 d8.config.canvas.cursor = "default";
 
 d8.config.canvas.id = "dots8canvas"
+
+//// drawing guide
+
+d8.config.guide = {};
+
+d8.config.guide.use = true;
+
+// how many dots are there until next guids
+d8.config.guide.interval = 4;
 

@@ -56,25 +56,13 @@ function input() {
 
 }
 
-function updateDot(dot, on) {
-
-  dot.on = on;
-
-  if(on) {
-    dot.dot.setAttribute("fill", d8.config.color.on);
-  } else {
-    dot.dot.setAttribute("fill", d8.config.color.off);
-  }
-
-}
-
 function updateCell(cell, dots) {
 
   for(var i = 0; i < 8; i++) {
 
-    var dot = cell[i];
+    var dot = cell.dots[i];
     var on = dots[i];
-    updateDot(dot, on);
+    dot.change(on);
 
   }
 
@@ -118,55 +106,8 @@ function dataImport() {
 
 //// Exporter
 
-function convertCellToChar(cell) {
-
-  // character code
-  var n = 0;
-
-  // cell format
-  //
-  // 0 1
-  // 2 3
-  // 4 5
-  // 6 7
-  //
-  // binary format
-  //
-  // 76531420
-  //
-
-  var arr = [7, 6, 5, 3, 1, 4, 2, 0];
-
-  arr.forEach(function(i) {
-
-    n = n << 1;
-
-    if(cell[i].on) {
-
-      n += 1;
-
-    } else {
-
-      n += 0;
-
-    }
-
-  });
-
-  // add offset
-  n += d8.data.dotZero;
-
-  // convert to a string
-  var ret = String.fromCharCode(n);
-
-  return ret;
-
-}
-
 function output(str) {
 
-//  console.log(str);
-//  window.alert(str);
   window.prompt("resulting string: ", str);
 
 }
@@ -183,7 +124,7 @@ function dataExport() {
 
     }
 
-    str += convertCellToChar(d8.data.cells[i]);
+    str += d8.data.cells[i].toString();
 
   }
 
