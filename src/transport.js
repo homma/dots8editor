@@ -106,7 +106,7 @@ function dataExport() {
 
   for(var i = 0; i < d8.data.cells.length; i++) {
 
-    if(i == d8.config.canvas.horizontalCells) {
+    if(i % d8.config.canvas.horizontalCells == 0) {
 
       str += "\n";
 

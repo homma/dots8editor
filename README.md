@@ -1,11 +1,11 @@
 
 ## What is this
 
-- A web browser based graphics editor for creating black and white dot graphics which can be displayed on terminal emulators.
+A web browser based graphics editor for creating black and white dot graphics which can be displayed on terminal emulators.
 
 ## What can be created with this
 
-- 160 points x 96 points black and white dot graphics which can be displayed on standard 80 characters width x 24 lines unicode enabled terminal emulators.
+160 points x 96 points black and white dot graphics which can be displayed on standard 80 characters width x 24 lines unicode enabled terminal emulators.
 
 ## How to use
 
@@ -17,7 +17,7 @@
 - press 'e' key to export it
 
 ### display on a terminal emulator
-- copy the resulting graphic data from javascript prompt output
+- copy the resulting graphic data from javascript prompt's text area
 - paste it to your terminal emulater
 
 ### restore
