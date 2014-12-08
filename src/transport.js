@@ -56,49 +56,37 @@ function input() {
 
 }
 
-function updateCell(cell, dots) {
-
-  for(var i = 0; i < 8; i++) {
-
-    var dot = cell.dots[i];
-    var on = dots[i];
-    dot.change(on);
-
-  }
-
-}
-
 function dataImport() {
 
   var str = input();
+
+  // if no data or window.prompt has been cancelled
+  if( (str == null) || (str == "") ) {
+    return;
+  }
 
   var importedCells = [];
 
   for(var i = 0; i < str.length; i++) {
 
-    var code = str.charCodeAt[i];
-
-    // remove new line charactors
-    // this is necessary
-    if( str[i] == "\n") {
-      continue;
-    }
+    var code = str.charCodeAt(i);
 
     // remove non dot charactors
-    if( (code < d8.config.dotZero) || (d8.config.dotFull < code) ) {
+    if( (code < d8.data.dotZero) || (d8.data.dotFull < code) ) {
       continue;
     }
 
+    // change an input string charactor to a dot and store
     importedCells.push( convertCharToBitPattern(str[i]) );
 
   }
 
-  // change dot attributes
+  // update dots
   for(var i = 0; i < d8.data.cells.length; i++) {
 
     var cell = d8.data.cells[i];
     var dots = importedCells[i];
-    updateCell(cell, dots);
+    cell.updateDots(dots);
 
   }
 

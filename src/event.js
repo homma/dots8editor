@@ -6,39 +6,28 @@ function keyHandler(e) {
 
   var charE = "E".charCodeAt(0);
   var charI = "I".charCodeAt(0);
+  var charM = "M".charCodeAt(0);
 
-  // export
-  if(e.keyCode == charE) {
+  switch(e.keyCode) {
 
-    dataExport();
+    // export
+    case charE:
 
-  }
+      dataExport();
+      break;
 
-  // import
-  if(e.keyCode == charI) {
+    // import
+    case charI:
 
-    dataImport();
+      dataImport();
+      break;
 
-  }
+    // change mode
+    case charM:
 
-}
-
-/*
-// clicked on a dot
-
-function clicked(dot) {
-
-  if(dot.on) {
-
-    dot.dot.setAttribute("fill", d8.config.color.off );
-    dot.on = false;
-
-  } else {
-
-    dot.dot.setAttribute("fill", d8.config.color.on );
-    dot.on = true;
+      break;
 
   }
 
 }
-*/
+

@@ -10,7 +10,8 @@
 ## How to use
 
 ### create an image
-- click dots to create a graphic image
+- open the [demo page](http://homma.github.io/app/dots8editor/)
+- click dots and create a graphic image
 
 ### save
 - press 'e' key to export it
@@ -20,12 +21,12 @@
 - paste it to your terminal emulater
 
 ### restore
-- press 'i' key to import your exported graphic data
+- press 'i' key to import an exported graphic data
 - then modify it until it is done
 
 ## Implemented features
 
-- dot canvas
+- dot graphic canvas
 - export tool (press 'e' key and copy data from prompt window.)
 - import tool (press 'i' key and paste data into the text box.)
 

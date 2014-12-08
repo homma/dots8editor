@@ -5,6 +5,9 @@
 ./src/data.js
 ./src/transport.js
 ./src/event.js
-./src/init.js
+./src/svg.js
+./src/dot.js
+./src/cell.js
+./src/canvas.js
 ./src/main.js
 
